@@ -1,0 +1,52 @@
+---
+title: "HW3_MuskanChowatia"
+author: "mc2611@rutgers.edu"
+date: "2022-09-24"
+output: html_document
+---
+
+```{r}
+library(fpp)
+library(fpp2)
+#1: Picking a Time Series
+
+austres
+
+#2: Describe TS
+
+#Answer: The dataset "austres" contains a quarterly time series of number of australian residents from 1975 to 1993 holding 89 values. As per the data derived using summary function the minimum number of residents in austrailia are 13067 and the maximum number is 17662 with an average of 15273 residents in austraila. 
+
+summary(austres)
+length(austres)
+dim(austres)
+
+#3: Plotting the Time Series and Guessing what would the Acf plot look as
+
+plot(austres)
+
+#Answer: The plot shows that the number of residents in austrailia are increasing indicating an upward trend. 
+#As per the graph plotted above the acf plot would also be a trend wherein the lag will slowly decrease and become 0.
+
+#4: Plotting ACF and what insight is it providing about the TS
+
+acf(austres)
+
+#Answer: After plotting the Acf it shows that there is a trend. As the distance between the data points(in this case: number of residents living in austrailia) increases the lag is decreasing monthly as well as quaterly which will slowly approach towards zero. 
+
+#5: Forecasting using HoltWinters and checking the accuracy
+
+x <- HoltWinters(austres)
+attributes(x)
+plot(x)
+x_f <- forecast(x)
+attributes(x_f)
+plot(x_f$residuals)
+hist(x_f$residuals)
+Acf(x_f$residuals)
+accuracy(x_f)
+
+#Explain why you took the whole TS or part of it for Acf and forecasting.
+
+#Answer: I have taken the whole TS instead of taking a part of it for ACF and forecasting since after plotting the Time Series it clearly indicated a trend. It was not a combination of different data patterns like seasonal and cyclical, seasonal and trend, etc hence I thought that decomposing of data was not required. 
+
+```
